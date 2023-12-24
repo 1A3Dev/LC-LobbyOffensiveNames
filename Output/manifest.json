@@ -1,7 +1,7 @@
 {
-  "name": "SignalTranslatorDisplay",
-  "version_number": "1.0.0",
-  "website_url": "https://github.com/1A3Dev/SignalTranslatorDisplay",
-  "description": "Allows you to choose where you want the signal translator transmissions to display.",
+  "name": "LobbyInviteOnly",
+  "version_number": "1.0.1",
+  "website_url": "https://github.com/1A3Dev/LC-LobbyInviteOnly",
+  "description": "Allows you to create a lobby that is invite only.",
   "dependencies": ["BepInEx-BepInExPack-5.4.2100"]
 }

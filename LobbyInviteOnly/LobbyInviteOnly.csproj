@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>.NETFramework,Version=v4.8</TargetFramework>
-        <AssemblyName>SignalTranslatorDisplay</AssemblyName>
-        <Description>Makes transmissions from the signal translator less intrusive.</Description>
+        <AssemblyName>LobbyInviteOnly</AssemblyName>
+        <Description>Allows you to create a lobby that is invite only.</Description>
         <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
@@ -25,6 +25,9 @@
       <Reference Include="Assembly-CSharp">
         <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
       </Reference>
+      <Reference Include="Facepunch.Steamworks.Win64">
+        <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
+      </Reference>
       <Reference Include="Unity.Netcode.Runtime">
         <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>
       </Reference>
@@ -37,9 +40,12 @@
       <Reference Include="UnityEngine.CoreModule">
         <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.UI">
+        <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.UI.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="call &quot;C:\Users\Jenson\source\repos\SignalTranslatorDisplay\build_post.bat&quot;" />
+      <Exec Command="call &quot;C:\Users\Jenson\source\repos\LobbyInviteOnly\build_post.bat&quot;" />
     </Target>
 </Project>
