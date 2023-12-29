@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>.NETFramework,Version=v4.8</TargetFramework>
-        <AssemblyName>LobbyInviteOnly</AssemblyName>
+        <AssemblyName>LobbyOffensiveNames</AssemblyName>
         <Description>Allows you to create a lobby that is invite only.</Description>
         <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -46,6 +46,6 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="call &quot;C:\Users\Jenson\source\repos\LobbyInviteOnly\build_post.bat&quot;" />
+      <Exec Command="call &quot;C:\Users\Jenson\source\repos\LC-LobbyOffensiveNames\build_post.bat&quot;" />
     </Target>
 </Project>

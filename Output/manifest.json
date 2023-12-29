@@ -1,7 +1,7 @@
 {
-  "name": "LobbyInviteOnly",
+  "name": "LobbyOffensiveNames",
   "version_number": "1.0.1",
-  "website_url": "https://github.com/1A3Dev/LC-LobbyInviteOnly",
-  "description": "Allows you to create a lobby that is invite only.",
+  "website_url": "",
+  "description": "Allows you to choose what terms cause a lobby to be hidden on the multiplayer server list.",
   "dependencies": ["BepInEx-BepInExPack-5.4.2100"]
 }
