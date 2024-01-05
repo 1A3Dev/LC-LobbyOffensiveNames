@@ -1,3 +1,0 @@
-cd C:\Users\Jenson\source\repos\LC-LobbyOffensiveNames
-copy ".\LobbyOffensiveNames\bin\Release\netstandard2.1\LobbyOffensiveNames.dll" ".\Output\LobbyOffensiveNames.dll" /Y
-copy ".\LobbyOffensiveNames\bin\Release\netstandard2.1\LobbyOffensiveNames.dll" "C:\Users\Jenson\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Default\BepInEx\plugins\Dev1A3-LobbyOffensiveNames\LobbyOffensiveNames.dll" /Y
