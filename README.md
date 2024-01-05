@@ -16,7 +16,7 @@ This mod lets you customise the base game terms which cause lobbies to not be vi
 - Works Well With:
   - N/A
 - Not Compatible With:
-  - N/A
+  - [MoreCompany](https://thunderstore.io/c/lethal-company/p/notnotnotswipez/MoreCompany/) - Currently doesn't include the filter, will change if/when the creator re-implements it.
 
 ### Configuration
 
