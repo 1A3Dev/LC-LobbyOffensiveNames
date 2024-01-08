@@ -50,7 +50,7 @@ namespace LobbyInviteOnly
         public static void InitConfig()
         {
             PluginLoader.Instance.BindConfig(ref FilterEnabled, "Settings", "Filter Enabled", true, "Should the offensive lobby name filter be enabled?");
-            PluginLoader.Instance.BindConfig(ref FilterTerms, "Settings", "Filter Terms", "nigger,nigga,n1g,nigers,negro,faggot,minors,chink,buttrape,molest,beastiality,cocks,cumshot,ejaculate,pedophile,furfag,necrophilia", "This should be a comma-separated list. Leaving this blank will also disable the filter.");
+            PluginLoader.Instance.BindConfig(ref FilterTerms, "Settings", "Filter Terms", "nigger,nigga,n1g,nigers,negro,faggot,minors,chink,buttrape,molest,beastiality,cocks,cumshot,ejaculate,pedophile,furfag,necrophilia,yiff", "This should be a comma-separated list. Leaving this blank will also disable the filter.");
             BlockedTermsRaw = FilterTerms.Value.Split(',').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
         }
     }
@@ -58,7 +58,7 @@ namespace LobbyInviteOnly
     [HarmonyPatch]
     internal static class SteamLobbyManagerStart_Patch
     {
-        [HarmonyPatch(typeof(SteamLobbyManager), "Start")]
+        [HarmonyPatch(typeof(SteamLobbyManager), "OnEnable")]
         [HarmonyPrefix]
         private static void Prefix(ref SteamLobbyManager __instance)
         {
@@ -79,16 +79,17 @@ namespace LobbyInviteOnly
             {
                 if (skip-- > 0) continue;
 
-                // check for IL_0021
-                if (instruction.opcode == OpCodes.Ldc_I4_S && (sbyte)instruction.operand == 21)
+                // check for IL_0022: ldc.i4.s
+                int arrayCount = 23;
+                if (instruction.opcode == OpCodes.Ldc_I4_S && (sbyte)instruction.operand == arrayCount)
                 {
                     Debug.Log("Replaced offensiveWords");
                     // replace entire new array op codes with an array pointer
                     newInstructions.Add(new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(OffensiveNamesConfig), "BlockedTermsRaw")));
 
                     // skip all array codes but keep:
-                    // IL_00dd: stfld        string[] SteamLobbyManager/'<loadLobbyListAndFilter>d__15'::'<offensiveWords>5__2'
-                    skip = 21 * 4 + 1;
+                    // IL_00EF: stfld     string[] SteamLobbyManager/'<loadLobbyListAndFilter>d__20'::'<offensiveWords>5__2'
+                    skip = arrayCount * 4 + 1;
 
                     continue;
                 }
