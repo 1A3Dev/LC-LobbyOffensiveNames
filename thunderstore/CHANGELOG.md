@@ -1,3 +1,8 @@
+### 1.0.4
+
+- Added v48 compatibility to the README.md
+- Added github repo link
+
 ### 1.0.3
 
 - Added v47 Support
