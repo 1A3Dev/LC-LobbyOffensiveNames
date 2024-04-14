@@ -1,3 +1,7 @@
+### 1.0.5
+
+- Added v50 compatibility to the README.md
+
 ### 1.0.4
 
 - Added v48 compatibility to the README.md
