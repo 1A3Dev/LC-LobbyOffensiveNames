@@ -12,8 +12,8 @@ This mod lets you customise the base game terms which cause lobbies to not be vi
 ### Compatibility
 
 - Supported Game Versions:
-  - v48
-  - v47
+  - v50+
+  - v47-v49
 - Works Well With:
   - N/A
 - Not Compatible With:
