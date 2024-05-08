@@ -57,9 +57,23 @@ namespace LobbyInviteOnly
             PluginLoader.Instance.BindConfig(ref FilterEnabled, "Settings", "Filter Enabled", true, "Should the offensive lobby name filter be enabled?");
             PluginLoader.Instance.BindConfig(ref FilterTerms, "Settings", "Filter Terms", "nigger,faggot,n1g,nigers,cunt,pussies,pussy,minors,chink,buttrape,molest,rape,coon,negro,beastiality,cocks,cumshot,ejaculate,pedophile,furfag,necrophilia,yiff,sex,nigga", "This should be a comma-separated list. Leaving this blank will also disable the filter.");
             BlockedTermsRaw = FilterTerms.Value.Split(',').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+            FilterEnabled.SettingChanged += (sender, args) =>
+            {
+                SteamLobbyManager lobbyManager = Object.FindFirstObjectByType<SteamLobbyManager>();
+                if (lobbyManager != null)
+                {
+                    lobbyManager.censorOffensiveLobbyNames = FilterEnabled.Value && BlockedTermsRaw.Length > 0;
+                }
+            };
             FilterTerms.SettingChanged += (sender, args) =>
             {
                 BlockedTermsRaw = FilterTerms.Value.Split(',').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+
+                SteamLobbyManager lobbyManager = Object.FindFirstObjectByType<SteamLobbyManager>();
+                if (lobbyManager != null)
+                {
+                    lobbyManager.censorOffensiveLobbyNames = FilterEnabled.Value && BlockedTermsRaw.Length > 0;
+                }
             };
         }
     }
