@@ -1,3 +1,7 @@
+### 1.0.6
+
+- Added compatibility with LethalConfig
+
 ### 1.0.5
 
 - Added v50 compatibility to the README.md
