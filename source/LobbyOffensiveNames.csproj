@@ -17,7 +17,6 @@
 
     <ItemGroup>
         <ThunderstoreBuildCopyPath Include="$(TargetPath)" Destination="BepInEx/plugins/$(ProjectName)/" />
-        <ThunderstoreBuildCopyPath Include="$(TargetDir)/$(TargetName).pdb" Condition="$(Configuration) != 'Release'" Destination="BepInEx/plugins/$(ProjectName)/" />
     </ItemGroup>
 
     <ItemGroup>
@@ -51,6 +50,18 @@
     </ItemGroup>
 
     <ItemGroup Condition="$(CI) == 'true'">
-        <PackageReference Include="LethalCompany.GameLibs.Steam" Version="50.0.0-beta.0-ngd.2" />
+        <PackageReference Include="LethalCompany.GameLibs.Steam" Version="50.0.1-ngd.0" />
     </ItemGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+    </PropertyGroup>
 </Project>

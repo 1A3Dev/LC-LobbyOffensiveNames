@@ -7,7 +7,20 @@
 
 ### Information
 
-This mod lets you customise the base game terms which cause lobbies to not be visible when viewing the list of multiplayer servers. You can also completely disable the filter.
+This mod lets you override the terms which cause lobbies to not be visible when viewing the multiplayer lobby list. You can also completely disable the filter.
+
+### Configuration
+
+The mod has some configuration options including:
+
+- Choosing what terms are filtered.
+
+### Support
+
+You can get support in any the following places:
+
+- [GitHub Issues](https://github.com/1A3Dev/LC-LobbyOffensiveNames/issues)
+- [My Discord Server](https://discord.gg/DZD2apDnMM)
 
 ### Compatibility
 
@@ -18,14 +31,3 @@ This mod lets you customise the base game terms which cause lobbies to not be vi
   - N/A
 - Not Compatible With:
   - N/A
-
-### Configuration
-
-The mod has some configuration options including:
-
-- Choosing what terms are filtered.
-
-### Credits
-
-- [1A3](https://github.com/1A3Dev) - _Creator_
-- [Nomnomab](https://github.com/nomnomab) - _Assisted With Code_

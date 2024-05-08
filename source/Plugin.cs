@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace LobbyInviteOnly
 
         public static PluginLoader Instance { get; private set; }
 
+        internal static ManualLogSource logSource;
+
         private void Awake()
         {
             if (initialized)
@@ -30,10 +33,12 @@ namespace LobbyInviteOnly
             }
             initialized = true;
             Instance = this;
-            Assembly patches = Assembly.GetExecutingAssembly();
-            harmony.PatchAll(patches);
+            logSource = Logger;
 
             OffensiveNamesConfig.InitConfig();
+
+            Assembly patches = Assembly.GetExecutingAssembly();
+            harmony.PatchAll(patches);
         }
 
         public void BindConfig<T>(ref ConfigEntry<T> config, string section, string key, T defaultValue, string description = "")
@@ -50,8 +55,12 @@ namespace LobbyInviteOnly
         public static void InitConfig()
         {
             PluginLoader.Instance.BindConfig(ref FilterEnabled, "Settings", "Filter Enabled", true, "Should the offensive lobby name filter be enabled?");
-            PluginLoader.Instance.BindConfig(ref FilterTerms, "Settings", "Filter Terms", "nigger,nigga,n1g,nigers,negro,faggot,minors,chink,buttrape,molest,beastiality,cocks,cumshot,ejaculate,pedophile,furfag,necrophilia,yiff", "This should be a comma-separated list. Leaving this blank will also disable the filter.");
+            PluginLoader.Instance.BindConfig(ref FilterTerms, "Settings", "Filter Terms", "nigger,faggot,n1g,nigers,cunt,pussies,pussy,minors,chink,buttrape,molest,rape,coon,negro,beastiality,cocks,cumshot,ejaculate,pedophile,furfag,necrophilia,yiff,sex,nigga", "This should be a comma-separated list. Leaving this blank will also disable the filter.");
             BlockedTermsRaw = FilterTerms.Value.Split(',').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+            FilterTerms.SettingChanged += (sender, args) =>
+            {
+                BlockedTermsRaw = FilterTerms.Value.Split(',').Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+            };
         }
     }
 
@@ -74,16 +83,18 @@ namespace LobbyInviteOnly
         public static IEnumerable<CodeInstruction> TranspileMoveNext(IEnumerable<CodeInstruction> instructions)
         {
             var newInstructions = new List<CodeInstruction>();
-            var skip = 0;
+            int skip = 0;
+            bool alreadyReplaced = false;
             foreach (var instruction in instructions)
             {
-                if (skip-- > 0) continue;
+                if (skip-- > 0) {
+                    continue;
+                }
 
                 // check for IL_0022: ldc.i4.s
                 int arrayCount = 23;
                 if (instruction.opcode == OpCodes.Ldc_I4_S && (sbyte)instruction.operand == arrayCount)
                 {
-                    Debug.Log("Replaced offensiveWords");
                     // replace entire new array op codes with an array pointer
                     newInstructions.Add(new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(OffensiveNamesConfig), "BlockedTermsRaw")));
 
@@ -91,11 +102,14 @@ namespace LobbyInviteOnly
                     // IL_00EF: stfld     string[] SteamLobbyManager/'<loadLobbyListAndFilter>d__20'::'<offensiveWords>5__2'
                     skip = arrayCount * 4 + 1;
 
+                    alreadyReplaced = true;
                     continue;
                 }
 
                 newInstructions.Add(instruction);
             }
+
+            if (!alreadyReplaced) PluginLoader.logSource.LogWarning($"loadLobbyListAndFilter_Patch failed to replace offensiveWords");
 
             return newInstructions.AsEnumerable();
         }
